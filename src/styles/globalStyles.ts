@@ -7,7 +7,7 @@ export const globalStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.bgColor,
     padding: 20,
-    paddingTop: Platform.OS === "ios" ? 42 : 32
+    paddingTop: Platform.OS === "ios" ? 52 : 42
   },
   text:{
     fontSize: 14,
@@ -27,5 +27,11 @@ export const globalStyles = StyleSheet.create({
     borderRadius: 12,
     paddingHorizontal: Platform.OS === "ios" ? 12 : 10 ,
     paddingVertical: Platform.OS === "ios" ? 12 : 10 ,
+  },
+  tag:{
+    paddingHorizontal: 20,
+    paddingVertical: Platform.OS === "ios" ? 6: 4,
+    borderRadius: 100,
+    backgroundColor: colors.blue
   }
 })
