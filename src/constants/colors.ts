@@ -3,5 +3,7 @@ export const colors = {
     gray:"#222329",
     text:"#ffffff",
     desc:"#e6e6e6",
-    blue:"#3618e0"
+    blue:"#3618e0b3",
+    gray2:"#696B6F",
+    white:"#fafafa"
 }
