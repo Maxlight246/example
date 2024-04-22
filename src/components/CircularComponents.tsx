@@ -9,10 +9,11 @@ interface Props {
   value: number;
   maxValue?: number;
   radius?: number;
+  titleFontSize?: number;
 }
 
-const CircularCpmponents = (props: Props) => {
-  const {value, maxValue, color, radius} = props;
+const CircularComponents = (props: Props) => {
+  const {value, maxValue, color, radius, titleFontSize} = props;
   return (
     <View>
       <CircularProgress
@@ -22,16 +23,16 @@ const CircularCpmponents = (props: Props) => {
         title={`${value}%`}
         showProgressValue={false}
         titleColor={colors.text}
-        titleFontSize={24}
+        titleFontSize={titleFontSize ?? 20}
         titleStyle={{
           fontFamily: fontFamilies.semiBold,
         }}
-        radius={radius ?? 50}
+        radius={radius ?? 46}
       />
     </View>
   );
 };
 
-export default CircularCpmponents;
+export default CircularComponents;
 
 const styles = StyleSheet.create({});

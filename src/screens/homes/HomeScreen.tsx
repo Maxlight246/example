@@ -1,24 +1,24 @@
 import {Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import Container from '../components/Container';
-import RowComponents from '../components/RowComponents';
-import SectionComponents from '../components/SectionComponents';
-import TextComponents from '../components/TextComponents';
-import {fontFamilies} from '../constants/fontFamilies';
-import TitleComponents from '../components/TitleComponents';
-import {globalStyles} from '../styles/globalStyles';
-import CardComponents from '../components/CardComponents';
+import Container from '../../components/Container';
+import RowComponents from '../../components/RowComponents';
+import SectionComponents from '../../components/SectionComponents';
+import TextComponents from '../../components/TextComponents';
+import {fontFamilies} from '../../constants/fontFamilies';
+import TitleComponents from '../../components/TitleComponents';
+import {globalStyles} from '../../styles/globalStyles';
+import CardComponents from '../../components/CardComponents';
 import {Add, Edit2, Element4, SearchNormal1} from 'iconsax-react-native';
-import {colors} from '../constants/colors';
+import {colors} from '../../constants/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import TagComponents from '../components/TagComponents';
-import SpaceComponents from '../components/SpaceComponents';
-import CircularComponents from '../components/CircularComponents';
-import CardImageComponents from '../components/CardImageComponents';
-import AvatarGroup from '../components/AvatarGroup';
-import ProgressBarComponents from '../components/ProgressBarComponents';
+import TagComponents from '../../components/TagComponents';
+import SpaceComponents from '../../components/SpaceComponents';
+import CircularComponents from '../../components/CircularComponents';
+import CardImageComponents from '../../components/CardImageComponents';
+import AvatarGroup from '../../components/AvatarGroup';
+import ProgressBarComponents from '../../components/ProgressBarComponents';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}: any) => {
   return (
     <View style={{flex: 1}}>
       <Container>
@@ -102,7 +102,7 @@ const HomeScreen = () => {
           <TitleComponents text="Urgents tasks" />
           <CardComponents>
             <RowComponents>
-              <CircularComponents value={80} radius={40} />
+              <CircularComponents value={80} radius={30} titleFontSize={13} />
               <View
                 style={{flex: 1, justifyContent: 'center', paddingLeft: 12}}>
                 <TextComponents text="Title of task" />
@@ -110,32 +110,33 @@ const HomeScreen = () => {
             </RowComponents>
           </CardComponents>
         </SectionComponents>
-        <View
-          style={{
-            position: 'absolute',
-            bottom: 0,
-            right: 0,
-            left: 0,
-            padding: 20,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <TouchableOpacity
-            activeOpacity={0.7}
-            style={[
-              globalStyles.row,
-              {
-                backgroundColor: colors.bgColor,
-                padding: 10,
-                borderRadius: 100,
-                width: '80%',
-              },
-            ]}>
-            <TextComponents text="Add new tasks" flex={0} />
-            <Add size={22} color={colors.white} />
-          </TouchableOpacity>
-        </View>
       </Container>
+      <View
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          right: 0,
+          left: 0,
+          paddingBottom: 20,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('AddNewTask')}
+          activeOpacity={0.7}
+          style={[
+            globalStyles.row,
+            {
+              backgroundColor: colors.bgColor,
+              padding: 10,
+              borderRadius: 100,
+              width: '80%',
+            },
+          ]}>
+          <TextComponents text="Add new tasks" flex={0} />
+          <Add size={22} color={colors.white} />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
