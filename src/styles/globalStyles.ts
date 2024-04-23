@@ -20,7 +20,6 @@ export const globalStyles = StyleSheet.create({
   section:{
     marginBottom: 16,
     paddingHorizontal:20,
-
   },
   inputContainer:{
     backgroundColor: colors.gray,

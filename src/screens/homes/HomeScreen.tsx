@@ -21,8 +21,8 @@ import ProgressBarComponents from '../../components/ProgressBarComponents';
 const HomeScreen = ({navigation}: any) => {
   return (
     <View style={{flex: 1}}>
-      <Container>
-        <SpaceComponents height={Platform.OS === 'ios' ? 52 : 42} />
+      <Container isScroll>
+        {/* <SpaceComponents height={Platform.OS === 'ios' ? 32 : 22} /> */}
         <SectionComponents>
           <RowComponents justify="space-between">
             <Element4 size={24} color={colors.desc} />
@@ -34,7 +34,9 @@ const HomeScreen = ({navigation}: any) => {
           <TitleComponents text="Be Productive Today" />
         </SectionComponents>
         <SectionComponents>
-          <RowComponents styles={[globalStyles.inputContainer]}>
+          <RowComponents
+            styles={[globalStyles.inputContainer]}
+            onPress={() => navigation.navigate('SearchScreen')}>
             <TextComponents color={colors.gray2} text="Search" />
             <SearchNormal1 size={20} color={colors.desc} />
           </RowComponents>
