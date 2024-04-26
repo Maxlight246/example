@@ -17,10 +17,11 @@ interface Props {
   font?: string;
   color?: string;
   flex?: number;
+  styles?: StyleProp<TextStyle>;
 }
 
 const TitleComponents = (props: Props) => {
-  const {text, size, font, color, flex} = props;
+  const {text, size, font, color, flex, styles} = props;
   return (
     <TextComponents
       size={size ?? 20}
@@ -28,6 +29,7 @@ const TitleComponents = (props: Props) => {
       color={color ?? colors.text}
       text={text}
       flex={flex ?? 1}
+      styles={styles}
     />
   );
 };

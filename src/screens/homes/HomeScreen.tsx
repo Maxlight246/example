@@ -8,7 +8,13 @@ import {fontFamilies} from '../../constants/fontFamilies';
 import TitleComponents from '../../components/TitleComponents';
 import {globalStyles} from '../../styles/globalStyles';
 import CardComponents from '../../components/CardComponents';
-import {Add, Edit2, Element4, SearchNormal1} from 'iconsax-react-native';
+import {
+  Add,
+  Edit2,
+  Element4,
+  Logout,
+  SearchNormal1,
+} from 'iconsax-react-native';
 import {colors} from '../../constants/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import TagComponents from '../../components/TagComponents';
@@ -17,8 +23,10 @@ import CircularComponents from '../../components/CircularComponents';
 import CardImageComponents from '../../components/CardImageComponents';
 import AvatarGroup from '../../components/AvatarGroup';
 import ProgressBarComponents from '../../components/ProgressBarComponents';
+import auth from '@react-native-firebase/auth';
 
 const HomeScreen = ({navigation}: any) => {
+  const user = auth().currentUser;
   return (
     <View style={{flex: 1}}>
       <Container isScroll>
@@ -30,8 +38,15 @@ const HomeScreen = ({navigation}: any) => {
           </RowComponents>
         </SectionComponents>
         <SectionComponents>
-          <TextComponents text="Hi, Jason" />
-          <TitleComponents text="Be Productive Today" />
+          <RowComponents>
+            <View style={{flex: 1}}>
+              <TextComponents text={`hi ${user?.email}`} />
+              <TitleComponents text="Be Productive Today" />
+            </View>
+            <TouchableOpacity onPress={() => auth().signOut()}>
+              <Logout size={22} color="coral" />
+            </TouchableOpacity>
+          </RowComponents>
         </SectionComponents>
         <SectionComponents>
           <RowComponents
