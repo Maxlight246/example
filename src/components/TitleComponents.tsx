@@ -28,7 +28,7 @@ const TitleComponents = (props: Props) => {
       font={font ?? fontFamilies.semiBold}
       color={color ?? colors.text}
       text={text}
-      flex={flex ?? 1}
+      flex={flex ?? 0}
       styles={styles}
     />
   );

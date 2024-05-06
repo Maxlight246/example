@@ -26,6 +26,7 @@ const Routers = () => {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
+        ...TransitionPresets.SlideFromRightIOS,
       }}>
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
       <Stack.Screen name="AddNewTask" component={AddNewTask} />
