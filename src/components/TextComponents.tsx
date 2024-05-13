@@ -11,12 +11,14 @@ interface Props {
   color?: string;
   flex?: number;
   styles?: StyleProp<TextStyle>;
+  line?: number;
 }
 
 const TextComponents = (props: Props) => {
-  const {text, size, font, color, flex, styles} = props;
+  const {text, size, font, color, flex, styles, line} = props;
   return (
     <Text
+      numberOfLines={line}
       style={[
         globalStyles.text,
         {

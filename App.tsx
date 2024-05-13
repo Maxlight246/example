@@ -9,12 +9,10 @@ import 'react-native-gesture-handler';
 const App = () => {
   return (
     <>
-      <SafeAreaView style={{flex: 1, backgroundColor: colors.bgColor}}>
-        <StatusBar barStyle="light-content" backgroundColor={colors.bgColor} />
-        <NavigationContainer theme={DarkTheme}>
-          <Routers />
-        </NavigationContainer>
-      </SafeAreaView>
+      <StatusBar barStyle="light-content" backgroundColor={colors.bgColor} />
+      <NavigationContainer theme={DarkTheme}>
+        <Routers />
+      </NavigationContainer>
     </>
   );
 };

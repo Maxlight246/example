@@ -11,7 +11,7 @@ interface Props {
 
 const AvatarGroup = (props: Props) => {
   const {uids} = props;
-  const uidsLength = 10;
+  const uidsLength = uids.length;
   const imageStyle = {
     width: 32,
     height: 32,

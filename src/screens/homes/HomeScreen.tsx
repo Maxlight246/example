@@ -125,12 +125,21 @@ const HomeScreen = ({navigation}: any) => {
             <RowComponents styles={{alignItems: 'flex-start'}}>
               <View style={{flex: 1}}>
                 {tasks[0] && (
-                  <CardImageComponents>
+                  <CardImageComponents
+                    onPress={() =>
+                      navigation.navigate('TaskDetail', {
+                        id: tasks[0].id,
+                      })
+                    }>
                     <TouchableOpacity style={[globalStyles.iconContainer]}>
                       <Edit2 size={20} color={colors.white} />
                     </TouchableOpacity>
                     <TitleComponents text={tasks[0].title} />
-                    <TextComponents text={tasks[0].description} size={13} />
+                    <TextComponents
+                      text={tasks[0].description}
+                      size={13}
+                      line={3}
+                    />
 
                     <View style={{marginVertical: 24}}>
                       {tasks[0].uids && <AvatarGroup uids={tasks[0].uids} />}
@@ -150,7 +159,14 @@ const HomeScreen = ({navigation}: any) => {
               <SpaceComponents width={16} />
               <View style={{flex: 1}}>
                 {tasks[1] && (
-                  <CardImageComponents color="rgba(33,150,243,0.8)">
+                  <CardImageComponents
+                    onPress={() =>
+                      navigation.navigate('TaskDetail', {
+                        id: tasks[1].id,
+                        color: 'rgba(33,150,243,0.8)',
+                      })
+                    }
+                    color="rgba(33,150,243,0.8)">
                     <TouchableOpacity style={[globalStyles.iconContainer]}>
                       <Edit2 size={20} color={colors.white} />
                     </TouchableOpacity>
@@ -163,7 +179,14 @@ const HomeScreen = ({navigation}: any) => {
                 )}
                 <SpaceComponents height={16} />
                 {tasks[2] && (
-                  <CardImageComponents color="rgba(18,181,22,0.8)">
+                  <CardImageComponents
+                    onPress={() =>
+                      navigation.navigate('TaskDetail', {
+                        id: tasks[2].id,
+                        color: 'rgba(18,181,22,0.8)',
+                      })
+                    }
+                    color="rgba(18,181,22,0.8)">
                     <TouchableOpacity style={[globalStyles.iconContainer]}>
                       <Edit2 size={20} color={colors.white} />
                     </TouchableOpacity>
