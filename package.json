@@ -12,6 +12,7 @@
     "clean": "watchman watch-del-all && rm -rf node_modules/ && yarn cache clean && yarn install && yarn start -- --reset-cache"
   },
   "dependencies": {
+    "@miblanchard/react-native-slider": "^2.6.0",
     "@react-native-firebase/app": "^19.2.2",
     "@react-native-firebase/auth": "^19.2.2",
     "@react-native-firebase/firestore": "^19.2.2",

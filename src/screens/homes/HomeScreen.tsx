@@ -144,8 +144,11 @@ const HomeScreen = ({navigation}: any) => {
                     <View style={{marginVertical: 24}}>
                       {tasks[0].uids && <AvatarGroup uids={tasks[0].uids} />}
 
-                      {tasks[0].progress && (
-                        <ProgressBarComponents percent="70%" color="#0AACFF" />
+                      {tasks[0]?.progress && (
+                        <ProgressBarComponents
+                          percent={`${Math.floor(tasks[0].progress * 100)}%`}
+                          color="#0AACFF"
+                        />
                       )}
                     </View>
                     <TextComponents
@@ -173,7 +176,10 @@ const HomeScreen = ({navigation}: any) => {
                     <TitleComponents text={tasks[1].title} />
                     {tasks[1].uids && <AvatarGroup uids={tasks[1].uids} />}
                     {tasks[1].progress && (
-                      <ProgressBarComponents percent="40%" color="#A2F068" />
+                      <ProgressBarComponents
+                        percent={`${Math.floor(tasks[1].progress * 100)}%`}
+                        color="#A2F068"
+                      />
                     )}
                   </CardImageComponents>
                 )}

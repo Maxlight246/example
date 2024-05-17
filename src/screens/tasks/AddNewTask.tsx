@@ -104,7 +104,7 @@ const AddNewTask = ({navigation}: any) => {
     setIsLoading(true);
     const data = {
       ...taskDetail,
-      fileUrls: attachmentUrl,
+      attachments: attachmentUrl,
     };
 
     await firestore()
