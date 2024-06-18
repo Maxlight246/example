@@ -23,6 +23,7 @@ import DocumentPicker, {
 } from 'react-native-document-picker';
 import TextComponents from '../../components/TextComponents';
 import storage from '@react-native-firebase/storage';
+import auth from '@react-native-firebase/auth';
 
 const initValue: TaskModel = {
   title: '',
@@ -42,10 +43,14 @@ const AddNewTask = ({navigation}: any) => {
   const [attachmentUrl, setAttachmentUrl] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
-
+  const user = auth().currentUser;
   useEffect(() => {
     handleGetAllUser();
   }, []);
+
+  useEffect(() => {
+    user && setTaskDetail({...taskDetail, uids: [user.uid]});
+  }, [user]);
 
   const handleChangeValue = (id: string, value: string | Date | string[]) => {
     const item: any = {...taskDetail};
@@ -101,25 +106,27 @@ const AddNewTask = ({navigation}: any) => {
   };
 
   const handleAddNewTasks = async () => {
-    setIsLoading(true);
-    const data = {
-      ...taskDetail,
-      attachments: attachmentUrl,
-    };
+    if (user) {
+      setIsLoading(true);
+      const data = {
+        ...taskDetail,
+        attachments: attachmentUrl,
+      };
 
-    await firestore()
-      .collection('tasks')
-      .add(data)
-      .then(() => {
-        console.log('New tasks added');
-        navigation.goBack();
-      })
-      .catch(err => {
-        console.log(err);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+      await firestore()
+        .collection('tasks')
+        .add(data)
+        .then(() => {
+          console.log('New tasks added');
+          navigation.goBack();
+        })
+        .catch(err => {
+          console.log(err);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
   };
 
   const handleDocumentPicker = () => {

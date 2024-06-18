@@ -12,10 +12,12 @@ interface Props {
   flex?: number;
   styles?: StyleProp<TextStyle>;
   line?: number;
+  textDecorationLine?: boolean;
 }
 
 const TextComponents = (props: Props) => {
-  const {text, size, font, color, flex, styles, line} = props;
+  const {text, size, font, color, flex, styles, line, textDecorationLine} =
+    props;
   return (
     <Text
       numberOfLines={line}
@@ -26,6 +28,8 @@ const TextComponents = (props: Props) => {
           fontSize: size ?? 14,
           color: color ?? colors.desc,
           flex: flex ?? 1,
+          textDecorationLine: textDecorationLine ? 'line-through' : 'none',
+          textDecorationStyle: 'dashed',
         },
         styles,
       ]}>

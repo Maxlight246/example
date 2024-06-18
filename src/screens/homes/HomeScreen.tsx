@@ -53,10 +53,12 @@ const HomeScreen = ({navigation}: any) => {
 
     await firestore()
       .collection('tasks')
+      .where('uids', 'array-contains', user?.uid)
       .limit(3)
       .onSnapshot(snap => {
         if (snap.empty) {
           console.log('Task is empty');
+          setIsLoading(false);
         } else {
           const items: TaskModel[] = [];
           snap.forEach((item: any) =>
@@ -204,7 +206,7 @@ const HomeScreen = ({navigation}: any) => {
             </RowComponents>
           </SectionComponents>
         ) : (
-          <></>
+          <Text>Task empty</Text>
         )}
 
         <SectionComponents>

@@ -26,7 +26,7 @@ import {
 import RowComponents from '../../components/RowComponents';
 import {colors} from '../../constants/colors';
 import firestore from '@react-native-firebase/firestore';
-import {Attachment, TaskModel} from '../../models/TaskModel';
+import {Attachment, SubTask, TaskModel} from '../../models/TaskModel';
 import TitleComponents from '../../components/TitleComponents';
 import SpaceComponents from '../../components/SpaceComponents';
 import AvatarGroup from '../../components/AvatarGroup';
@@ -40,20 +40,23 @@ import {Slider} from '@miblanchard/react-native-slider';
 import ButtonComponent from '../../components/ButtonComponents';
 import UploadFileComponents from '../../components/UploadFileComponents';
 import {calcFileSize} from '../../utils/calcFileSize';
+import ModalAddSubTask from '../../modals/ModalAddSubTask';
 
 const TaskDetail = ({navigation, route}: any) => {
   const {id, color}: {id: string; color?: string} = route.params;
   const [tasksDetail, setTasksDetail] = useState<TaskModel>();
   const [progress, setProgress] = useState(0);
   const [attachments, setAttachments] = useState<Attachment[]>([]);
-  const [subTasks, setSubTasks] = useState<any[]>([]);
+  const [subTasks, setSubTasks] = useState<SubTask[]>([]);
   const [isChanged, setIsChanged] = useState(false);
+  const [isVisibleModalSubTask, setIsVisibleModalSubTask] = useState(false);
 
   useEffect(() => {
     getDetailTask();
-
+    getSubTaskById();
     return () => {
       getDetailTask();
+      getSubTaskById();
     };
   }, []);
 
@@ -92,6 +95,26 @@ const TaskDetail = ({navigation, route}: any) => {
       });
   };
 
+  const getSubTaskById = () => {
+    firestore()
+      .collection('subTasks')
+      .where('taskId', '==', id)
+      .onSnapshot(snap => {
+        if (snap.empty) {
+          console.log('Data not found');
+        } else {
+          const items: SubTask[] = [];
+          snap.forEach(item => {
+            items.push({
+              id: item.id,
+              ...item.data(),
+            });
+          });
+          setSubTasks(items);
+        }
+      });
+  };
+
   const handleUpdateTask = async () => {
     const data = {...tasksDetail, progress, attachments, updateAt: Date.now()};
 
@@ -104,6 +127,16 @@ const TaskDetail = ({navigation, route}: any) => {
       .catch(err => {
         console.log(err);
       });
+  };
+
+  const handleUpdateSubTask = async (id: string, isCompleted: boolean) => {
+    try {
+      await firestore()
+        .doc(`subTasks/${id}`)
+        .update({isCompleted: !isCompleted});
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return tasksDetail ? (
@@ -238,22 +271,40 @@ const TaskDetail = ({navigation, route}: any) => {
         <SectionComponents>
           <RowComponents>
             <TitleComponents text="Sub tasks" flex={1} />
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => setIsVisibleModalSubTask(true)}>
               <AddSquare size={24} color={colors.success} variant="Bold" />
             </TouchableOpacity>
           </RowComponents>
           <SpaceComponents height={12} />
-          {Array.from({length: 3}).map((item, index) => (
-            <CardComponents
-              key={`substask${index}`}
-              styles={{marginBottom: 12}}>
-              <RowComponents>
-                <TickCircle variant="Bold" color={colors.success} size={22} />
-                <SpaceComponents width={8} />
-                <TextComponents text="lala" />
-              </RowComponents>
-            </CardComponents>
-          ))}
+          {subTasks.length > 0 &&
+            subTasks.map((item, index) => (
+              <CardComponents
+                key={`substask${index}`}
+                styles={{marginBottom: 12}}>
+                <RowComponents
+                  onPress={() =>
+                    handleUpdateSubTask(item.id, item.isCompleted)
+                  }>
+                  <TickCircle
+                    variant={item?.isCompleted ? 'Bold' : 'Outline'}
+                    color={colors.success}
+                    size={22}
+                  />
+                  <SpaceComponents width={8} />
+                  <View style={{flex: 1}}>
+                    <TextComponents
+                      text={item.title ?? ''}
+                      textDecorationLine={item.isCompleted}
+                    />
+                    <TextComponents
+                      text={HandleDateTime.DateString(item.createdAt ?? 0)}
+                      size={12}
+                      color="#e0e0e0"
+                    />
+                  </View>
+                </RowComponents>
+              </CardComponents>
+            ))}
         </SectionComponents>
 
         <SectionComponents>
@@ -264,6 +315,11 @@ const TaskDetail = ({navigation, route}: any) => {
           />
         </SectionComponents>
       </ScrollView>
+      <ModalAddSubTask
+        visible={isVisibleModalSubTask}
+        onClose={() => setIsVisibleModalSubTask(false)}
+        taskId={id}
+      />
     </>
   ) : (
     <></>
